@@ -1,34 +1,22 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import AuroraBackgroundSetup from '../AuroraBackgroundSetup'
 
 function FirstPage() {
-  const [circle, setCircle] = useState(false);
-  var clientDeviceHeight = document.documentElement.clientHeight * 0.7;
-  const changeToCircle = () => {
-    if (window.scrollY >= clientDeviceHeight) {
-      setCircle(true)
-    } else (
-      setCircle(false)
-    )
-  }
-  useEffect(() => {
-    window.addEventListener('scroll', changeToCircle)
-  })
     return (
-      <AuroraBackgroundSetup bgImage={"/images/camping.jpg"} id="sectionOne">
-        <Circle>
-          <CircleImage />
-        </Circle>
-        <TextContainer>
-          <h1>UzCamp</h1>
-          <p>Book, Reserve, And Enjoy</p>
-        </TextContainer>
-        <Line
-          id="line"
-          className={circle ? "circle" : null}
-        />
-      </AuroraBackgroundSetup>
+      <>
+        <AuroraBackgroundSetup bgImage={"/images/camping.jpg"} id="sectionOne">
+          <Circle>
+            <CircleImage />
+          </Circle>
+          <TextContainer>
+            <h1>UzCamp</h1>
+            <p>Book, Reserve, And Enjoy</p>
+            <Line />
+          </TextContainer>
+          
+        </AuroraBackgroundSetup>
+      </>
     );
 }
 
@@ -125,36 +113,11 @@ const Line = styled.div`
   width: 400px;
   height: 1px;
   background: white;
-  transition: 1s ease-in-out;
-  position: absolute;
-  top: 70%;
-  right: 12%;
+  transition: 0.8s ease-in-out;
+  margin-top: -10px;
 
   @media (max-width: 1100px) {
-    top: 65%;
-    right: 52%;
-    transform: translate(60%, -35%);
     width: 200px;
-  }
-
-  &.circle {
-    position: fixed;
-    width: 50px !important;
-    height: 50px;
-    transform: translate(7vw, 18vh);
-    border-radius: 50%;
-    background-color: black;
-    z-index: 10000;
-    cursor: pointer;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: black;
-    background-image: url('/images/socialMedia.png');
-    border: 1px solid black;
-
-    @media (max-width: 1100px) {
-      transform: translate(46vw, 23vh);
-    }
+    height: 1px;
   }
 `;

@@ -7,6 +7,28 @@ function Header() {
     const [formNumber, setFormNumber] = useState('first');
     const [howLong, setHowLong] = useState('');
     const [zipCode, setZipCode] = useState('');
+    var date = new Date();
+    var dd = date.getDate() + 1;
+    var mm = date.getMonth() + 1;
+
+    var yyyy = date.getFullYear();
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    var maxDD = date.getDate() + 1;
+    var maxMM = date.getMonth() + 5;
+    var maxYYYY = date.getFullYear();
+    if (maxDD < 10) {
+        maxDD = "0" + maxDD;
+    }
+    if (maxMM < 10) {
+      maxMM = "0" + maxMM;
+    }
+    var maxDate = maxYYYY + "-" + maxMM + "-" + maxDD;
+    var date = yyyy + "-" + mm + "-" + dd;
     const howLongFunction = (e) => {
         if (!e.target.validity.patternMismatch) {
           setHowLong(e.target.value);
@@ -23,50 +45,120 @@ function Header() {
         setHowLong('');
         setZipCode('');
     }
-   
-
   return (
     <div>
-        <Container onClick={() => setShowPopUp(true)}>
-            <CalendarOutlined />
-        </Container>
-        <PopUp style={showPopUp ? {opacity: '1', zIndex:100000} : null}>
-            <Booking style={showPopUp && formNumber === 'first' ? {transform: 'translateY(0px)'} : null} >
-               <CloseOutlined onClick={closeFunctionality} />
-               <Form>
-                   <div>
-                    <label htmlFor="date">Select Your Vacation Day</label>
-                    <input id="date" type="date" className='date'/>
-                   </div>
-                   <div style={{flexDirection: 'row'}}>
-                    <div style={{flexDirection: 'column', border: '1px solid black', borderRadius: '1em', height: '110%', marginLeft: '10px', marginRight: '10px'}}>
-                        <label htmlFor="howLong" style={{fontSize: '15px', marginBottom: '10px'}}>How Long Do You Wish To Stay</label>
-                        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: '10px'}}>
-                            <input id="howLong" maxLength='1'  className='howLong' pattern="^[0-9]*$" onChange={howLongFunction} value={howLong} /> <label htmlFor="howLong" style={{fontSize: '14px'}}>Days </label>
-                        </div>
-                    </div>
-                    <div style={{flexDirection: 'column', border: '1px solid black', borderRadius: '1em', marginLeft: '10px', marginRight: '10px', height: '110%'}}>
-                        <label htmlFor="zipCode" style={{fontSize: '15px', marginBottom: '10px'}}>Zip Code</label>
-                        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: '10px'}}>
-                            <input id="zipCode" maxLength='5'  className='zipCode' pattern="^[0-9]*$" onChange={zipCodeFunction} placeholder='XXXXX' value={zipCode} />
-                        </div>
-                    </div>
-                   </div>
-                   <Tents className='tents'>
-                        <TentOptions></TentOptions>
-                        <TentDescription></TentDescription>
-                    </Tents>
-               </Form>
-            </Booking>
-            <Booking style={showPopUp && formNumber === 'second' ? {transform: 'translateY(0px)'} : null} >
-               <CloseOutlined onClick={closeFunctionality} />
-               <Form>
-                   <p onClick={() => setFormNumber('first')}>Back</p>
-               </Form>
-            </Booking>
-        </PopUp>
+      <Container onClick={() => setShowPopUp(true)}>
+        <CalendarOutlined />
+      </Container>
+      <PopUp style={showPopUp ? { opacity: "1", zIndex: 100000 } : null}>
+        <Booking
+          style={
+            showPopUp && formNumber === "first"
+              ? { transform: "translateY(0px)" }
+              : null
+          }
+        >
+          <CloseOutlined onClick={closeFunctionality} />
+          <Form>
+            <div>
+              <label htmlFor="date">Select Your Vacation Day</label>
+              <input id="date" type="date" className="date"  min={date} max={maxDate} />
+            </div>
+            <div style={{ flexDirection: "row" }}>
+              <div
+                style={{
+                  flexDirection: "column",
+                  border: "1px solid black",
+                  borderRadius: "1em",
+                  height: "110%",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              >
+                <label
+                  htmlFor="howLong"
+                  style={{ fontSize: "15px", marginBottom: "10px" }}
+                >
+                  How Long Do You Wish To Stay
+                </label>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    marginTop: "10px",
+                  }}
+                >
+                  <input
+                    id="howLong"
+                    maxLength="1"
+                    className="howLong"
+                    pattern="^[0-9]*$"
+                    onChange={howLongFunction}
+                    value={howLong}
+                  />{" "}
+                  <label htmlFor="howLong" style={{ fontSize: "14px" }}>
+                    Days{" "}
+                  </label>
+                </div>
+              </div>
+              <div
+                style={{
+                  flexDirection: "column",
+                  border: "1px solid black",
+                  borderRadius: "1em",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                  height: "110%",
+                }}
+              >
+                <label
+                  htmlFor="zipCode"
+                  style={{ fontSize: "15px", marginBottom: "10px" }}
+                >
+                  Zip Code
+                </label>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    marginTop: "10px",
+                  }}
+                >
+                  <input
+                    id="zipCode"
+                    maxLength="5"
+                    className="zipCode"
+                    pattern="^[0-9]*$"
+                    onChange={zipCodeFunction}
+                    placeholder="XXXXX"
+                    value={zipCode}
+                  />
+                </div>
+              </div>
+            </div>
+            <Tents className="tents">
+              <TentOptions></TentOptions>
+              <TentDescription></TentDescription>
+            </Tents>
+          </Form>
+        </Booking>
+        <Booking
+          style={
+            showPopUp && formNumber === "second"
+              ? { transform: "translateY(0px)" }
+              : null
+          }
+        >
+          <CloseOutlined onClick={closeFunctionality} />
+          <Form>
+            <p onClick={() => setFormNumber("first")}>Back</p>
+          </Form>
+        </Booking>
+      </PopUp>
     </div>
-  )
+  );
 }
 
 export default Header
@@ -89,6 +181,7 @@ const Container = styled.div `
     justify-content: center;
     animation: moveDown 0.6s;
     cursor: pointer;
+    z-index: 1000;
 
     
 

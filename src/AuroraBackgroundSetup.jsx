@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-function AuroraBackgroundSetup({children, bgImage}) {
+function AuroraBackgroundSetup({children, bgImage, style}) {
   return (
-    <Container>
+    <Container style={{...style}}>
         <Image  style={{backgroundImage: `url(${bgImage})`}} />
         {children}
     </Container>
@@ -12,13 +12,15 @@ function AuroraBackgroundSetup({children, bgImage}) {
 
 export default AuroraBackgroundSetup
 
-const Container = styled.div `
-    width: 100vw;
-    height: 100%;
-    display: flex;
-    overflow: hidden;
-    position: relative;
-`
+const Container = styled.section `
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  scroll-snap-align: center;
+  flex: none;
+`;
 
 const Image = styled.div `
     display: flex;
